@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      // beginPath -> 그릴 선의 시작을 알려줌(경로 시작)
+      // moveTo -> 그림판(캔버스)에서 붓의 시작 위치를 정한다.
+      // lineTo -> 그릴 선의 종료 위치 선정. 선을 그릴 방향을 정함(계획 세우는 것).
+      // stroke -> 이 함수를 통해 계획대로 선이 그어지게됨.
+      // closePath -> 그린 선의 종료를 알려줌(경로 끝)
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      context.beginPath();
+      context.moveTo(100, 100);
+      context.lineTo(300, 200);
+      context.stroke();
+      context.closePath();
+      // context.fill();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

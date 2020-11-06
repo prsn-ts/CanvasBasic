@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>requestAnimationFrame</h1>
+    <canvas class="canvas" width="500" height="300"></canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      let xPos = 10;
+      let timerId;
+      let leftTouchSide = false; //왼쪽에 닿았는지 확인 변수
+      let rightTouchSide = false; //오른쪽에 닿았는지 확인 변수
+
+      //그리기 함수(좌우로 움직이는 애니메이션 효과)
+      function draw() {
+          context.clearRect(0, 0, canvas.width, canvas.height); //시작할 때 이전에 그렸던 그림 지우고
+          context.beginPath(); //그리기 경로 시작을 알림
+          context.arc(xPos, 150, 10, 0, Math.PI*2, false); //어디에 어떤 크기로 무슨 모양으로 그릴 지 설정
+          context.fill(); //arc의 계획대로 그림
+          if(xPos < canvas.width-10 && (rightTouchSide === false && leftTouchSide === true)){
+            xPos += 3;
+          }else if(xPos === canvas.width-10){ //오른쪽 터치한 경우
+            xPos -= 3;
+            rightTouchSide = true;
+            leftTouchSide = false;
+          }else if(xPos === 10){ //왼쪽 터치한 경우
+            xPos += 3;
+            rightTouchSide = false;
+            leftTouchSide = true;
+          }
+          else if(xPos < canvas.width-10 && (rightTouchSide === true && leftTouchSide === false)){
+            xPos -= 3;
+          }
+        
+        // xPos = xPos + 3;
+
+        // if (xPos >= canvas.width-10) {
+        //   return;
+        // }
+
+        /*
+            requestAnimationFrame()과 비슷한 setInterval()을 안쓰는 이유
+            -> setInterval()은 반복 횟수 조정을 할 수 있어서 requestAnimationFrame()보다 좋을 것 같지만
+            사용하지 않는 이유는 컴퓨터 성능이 안좋거나 버벅거림이 있을 수 있으나 requestAnimationFrame()의 경우 애니메이션 프레임의 유실과 화면에 버벅거림이 적고 그림 그릴 준비가 되면 실행하는 장점이 있으며 또한 모바일에서도 배터리 소모가 적어서 requestAnimationFrame()를 많이 사용한다고 함.
+        */
+
+        timerId = requestAnimationFrame(draw);
+
+        // if (xPos >= canvas.width-10) {
+        //   cancelAnimationFrame(timerId);
+        // }
+      }
+
+      draw();
+
+      canvas.addEventListener('click', () => {
+        cancelAnimationFrame(timerId);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

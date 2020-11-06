@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      function 라디안(각도) {
+        return 각도 * Math.PI / 180;
+      }
+      // beginPath
+      // arc
+      // closePath
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      context.beginPath();
+      /*
+          인자 순서대로 정리
+          1. 시작 좌표 값
+          2. 끝 좌표 값
+          3. 반지름 값
+          4. 시작 각도 설정(0은 3시방향이 default)
+          5. 끝 각도 설정(라디안)
+          6. 선을 그리는 시계(false) or 반시계(true) 방향 설정
+      */
+      context.beginPath();
+      context.arc(300, 200, 50, 0, 라디안(360), false);
+      context.fill();
+      context.stroke();
+      context.beginPath();
+      context.arc(500, 100, 20, 0, 라디안(360), false);
+      context.stroke();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

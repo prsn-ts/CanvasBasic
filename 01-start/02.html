@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        margin: 0;
+      }
+      .canvas {
+        width: 500px;
+        height: 300px;
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 
+        요소안에 width, height 속성과 css로 width, height 속성은 차이가 있다.
+        요소안에 있는 width, height 속성은 실제 캔버스(그림종이라고 보면됨)의 크기를 나타낸거라 보면되고
+        css 안에 width, height는 실제 크기에 비례하는 크기로 나타낸 것이라 볼 수 있다.
+        이 예제의 경우 width, height 값이 1000px, 600px 인데 css로 500px, 300px로 가로,세로 둘다 2분의1의 비율로 줄여서 보여주기 때문에 27번째 줄의 캔버스에 비해 28번째 줄의 캔버스는 원의 크기가 작게 보인다.
+     -->
+    <h1>캔버스 사이즈 설정</h1>
+    <canvas class="canvas" width="500" height="300"></canvas>
+    <canvas class="canvas canvas2" width="1000" height="600"></canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const canvas2 = document.querySelector('.canvas2');
+      const context = canvas.getContext('2d');
+      const context2 = canvas2.getContext('2d');
+
+      context.arc(100, 100, 50, 0, Math.PI*2, false);
+      context2.arc(100, 100, 50, 0, Math.PI*2, false);
+      context.fill();
+      context2.fill();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
