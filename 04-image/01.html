@@ -22,6 +22,8 @@
       // const imgElem = document.createElement('img');
       const imgElem = new Image();
       imgElem.src = '../images/ilbuni1.png';
+
+      //이미지 엘리먼트가 다 로딩이 되어야만 캔버스로 그릴 수 있기 때문에 addEventListener로 load 이벤트가 발생하고 나서 그릴 수 있도록 처리함.
       imgElem.addEventListener('load', () => {
         context.drawImage(imgElem, 50, 50);
         context.drawImage(imgElem, 50, 50, 70, 120);
