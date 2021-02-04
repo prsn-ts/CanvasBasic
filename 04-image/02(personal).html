@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Canvas</title>
+	<style>
+		canvas {
+			background: #eee;
+		}
+		.button {
+			margin-top: 8px;
+			width:30px;
+			height: 30px;
+			border-radius: 30px;
+			border: none;
+		}
+		.button.black {
+			background-color: black;
+		}
+		.button.red {
+			background-color: red;
+		}
+		.button.green {
+			background-color: green;
+		}
+		.button.blue {
+			background-color: blue;
+		}
+		.image_btn {
+			width: 40px; height: 40px;
+			border: 1px solid gray;
+			background: url("../images/ilbuni1.png") no-repeat center/100%;
+		}
+	</style>
+</head>
+<body>
+	<h1>drawing board(image 그리기 포함)</h1>
+	<canvas class="canvas" width="600" height="400"></canvas>
+	<div class="control">
+		<button class="button black"></button>
+		<button class="button red"></button>
+		<button class="button green"></button>
+		<button class="button blue"></button>
+		<button class="image_btn" data-type="image"></button>
+	</div>
+	<script>
+		// let drag = false; //드래그 했는지 판별하는 변수
+		let drag = false;
+		const canvas = document.querySelector('.canvas');
+		const context = canvas.getContext('2d');
+		let xPos = -50;
+		let yPos = -50;
+		let pencil = 'black'; //이미지인지 색상을 선택했는지 확인용(기본값은 black)
+		
+		let ImgElem = new Image(); //이미지 객체 생성
+		ImgElem.src = '../images/ilbuni2.png';
+
+		//색상 버튼 객체 생성.
+		const blackButton = document.querySelector('.black');
+		const redButton = document.querySelector('.red');
+		const greenButton = document.querySelector('.green');
+		const blueButton = document.querySelector('.blue');
+		const imageButton = document.querySelector('.image_btn');
+
+		//색상 바꾸기 이벤트 발생
+		blackButton.addEventListener('click', function(){
+			context.fillStyle = "black";
+			pencil = "black";
+		});
+		redButton.addEventListener('click', function(){
+			context.fillStyle = "red";
+			pencil = "red";
+		});
+		greenButton.addEventListener('click', function(){
+			context.fillStyle = "green";
+			pencil = "green";
+		});
+		blueButton.addEventListener('click', function(){
+			context.fillStyle = "blue";
+			pencil = "blue";
+		});
+		imageButton.addEventListener('click', function(){
+			pencil = "image";
+		});
+
+		//입력받은 각도에 맞는 라디안 구하는 함수
+		function angleCal(angle) {
+			return 180 / Math.PI*2;
+		}
+
+		//x좌표, y좌표에 맞게 선을 그리는 함수.
+		function draw() {
+			if(pencil != "image"){
+				//마우스를 캔버스 위에서 누른 상태로 움직였을 때 좌표값 찍기
+				context.beginPath();
+				context.arc(xPos,yPos,10,0,angleCal(360), false);
+				context.fill();
+			}
+			else{
+				context.drawImage(ImgElem, xPos, yPos, 50, 50);
+			}
+			
+		}
+
+		//캔버스에서 마우스를 클릭했을 때
+	    canvas.addEventListener( 
+        'mousedown', function() {
+        	drag = true;
+        	console.log("mousedown : "+drag);
+        }); 
+	  
+	  	//캔버스에서 마우스를 움직였을 때
+	    canvas.addEventListener( 
+	        'mousemove', function(e) {
+        	if(drag == true) {
+        		xPos = e.offsetX;
+				yPos = e.offsetY;
+				console.log("x좌표 : "+xPos, "y좌표 : "+yPos);
+        		draw();
+        	}
+	    });
+
+	  	//캔버스에서 마우스 클릭을 뗐을 때
+	    canvas.addEventListener( 
+        'mouseup', function() {
+        	drag = false;
+        	console.log("mouseup : "+drag);
+        });
+	</script>
+</body>
+</html>
